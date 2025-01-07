@@ -69,15 +69,31 @@ public class CreateFolders : EditorWindow // 声明一个名为CreateFolders的�
         AssetDatabase.Refresh(); // 刷新资源数据库，使Unity编辑器能够识别新创建的文件夹喵
     }
 
-    void OnGUI() // 重写OnGUI方法，用于绘制编辑器窗口的GUI喵
+     void OnGUI() // 重写OnGUI方法，用于绘制编辑器窗口的GUI喵
     {
         EditorGUILayout.LabelField("Insert the Project name used as the root folder"); // 绘制一个标签，提示用户输入项目名称喵
         projectName = EditorGUILayout.TextField("Project Name: ", projectName); // 绘制一个文本框，用于用户输入项目名称喵
         this.Repaint(); // 强制重新绘制GUI喵
         GUILayout.Space(70); // 添加一些空白空间喵
-        if (GUILayout.Button("Generate!")) { // 绘制一个按钮，点击后会调用CreateAllFolders方法，并关闭窗口喵
+         
+        if (GUILayout.Button("Generate!")) // 绘制一个按钮，点击后会调用CreateAllFolders方法，并关闭窗口喵
+        {
             CreateAllFolders(); // 调用CreateAllFolders方法，创建所有文件夹喵
             this.Close(); // 关闭编辑器窗口喵
+        }
+        
+        if (GUILayout.Button("Cancel")) // 绘制一个取消按钮，点击后直接关闭窗口喵
+        {
+           this.Close();
+        }
+    }
+    
+    void OnInspectorUpdate()// 每一帧都会调用，用于处理按键取消
+    {
+        if (UnityEngine.Event.current != null && UnityEngine.Event.current.type == UnityEngine.EventType.KeyDown && UnityEngine.Event.current.keyCode == KeyCode.Escape)
+        {
+            this.Close(); // 当按下esc键时关闭窗口喵
+             UnityEngine.Event.current.Use(); // 设置事件被消耗
         }
     }
 }
