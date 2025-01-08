@@ -18,12 +18,12 @@ public class CreateFolders : EditorWindow // 声明一个名为CreateFolders的�
 {
     private static string projectName = "PROJECT_NAME"; // 声明一个静态字符串变量projectName，用于存储项目名称，默认值为"PROJECT_NAME"喵
     
-    [MenuItem("Assets/Create Default Folders")] // 添加一个菜单项到Assets菜单，点击后会调用SetUpFolders方法喵
-    [MenuItem("Tools/Create Default Folders")] // 添加一个菜单项到Tools菜单，点击后会调用SetUpFolders方法喵
+    [MenuItem("Assets/Folder/Create Default Folders")] // 添加一个菜单项到Assets/Folder菜单下，点击后会调用SetUpFolders方法喵
+    [MenuItem("Tools/Folder/Create Default Folders")] // 添加一个菜单项到Tools/Folder菜单下，点击后会调用SetUpFolders方法喵
     private static void SetUpFolders() // 声明一个静态方法SetUpFolders，用于创建编辑器窗口喵
     {
         CreateFolders window = ScriptableObject.CreateInstance<CreateFolders>(); // 创建一个CreateFolders实例喵
-        window.position = new Rect(Screen.width / 2, Screen.height / 2, 400, 150); // 设置窗口的位置和大小喵
+        window.position = new Rect(Screen.width / 2, Screen.height / 2, 400, 300); // 设置窗口的位置和大小喵
         window.ShowPopup(); // 显示弹窗形式的编辑器窗口喵
     }
 
@@ -74,7 +74,28 @@ public class CreateFolders : EditorWindow // 声明一个名为CreateFolders的�
         EditorGUILayout.LabelField("Insert the Project name used as the root folder"); // 绘制一个标签，提示用户输入项目名称喵
         projectName = EditorGUILayout.TextField("Project Name: ", projectName); // 绘制一个文本框，用于用户输入项目名称喵
         this.Repaint(); // 强制重新绘制GUI喵
-        GUILayout.Space(70); // 添加一些空白空间喵
+        GUILayout.Space(10);
+		
+		// 显示要创建的文件夹结构
+        EditorGUILayout.LabelField("Folders to be created:", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField($"- {projectName}");
+        EditorGUILayout.LabelField($"  - Animations");
+        EditorGUILayout.LabelField($"  - Audio");
+        EditorGUILayout.LabelField($"  - Editor");
+        EditorGUILayout.LabelField($"  - Materials");
+        EditorGUILayout.LabelField($"  - Meshes");
+        EditorGUILayout.LabelField($"  - Prefabs");
+		EditorGUILayout.LabelField($"  - Scripts");
+        EditorGUILayout.LabelField($"  - Scenes");
+        EditorGUILayout.LabelField($"  - Shaders");
+		EditorGUILayout.LabelField($"  - Textures");
+        EditorGUILayout.LabelField($"  - UI");
+        EditorGUILayout.LabelField($"    - Assets");
+        EditorGUILayout.LabelField($"    - Fonts");
+        EditorGUILayout.LabelField($"    - Icon");
+
+
+        GUILayout.Space(10);
          
         if (GUILayout.Button("Generate!")) // 绘制一个按钮，点击后会调用CreateAllFolders方法，并关闭窗口喵
         {
