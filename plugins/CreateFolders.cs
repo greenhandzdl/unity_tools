@@ -17,9 +17,10 @@ using System.IO; // 引入文件IO相关的命名空间喵
 public class CreateFolders : EditorWindow // 声明一个名为CreateFolders的类，继承自EditorWindow，用于创建自定义编辑器窗口喵
 {
     private static string projectName = "PROJECT_NAME"; // 声明一个静态字符串变量projectName，用于存储项目名称，默认值为"PROJECT_NAME"喵
+    private Vector2 scrollPosition; // 用于存储滚动视图的位置喵
     
-    [MenuItem("Assets/Folder/Create Default Folders")] // 添加一个菜单项到Assets/Folder菜单下，点击后会调用SetUpFolders方法喵
-    [MenuItem("Tools/Folder/Create Default Folders")] // 添加一个菜单项到Tools/Folder菜单下，点击后会调用SetUpFolders方法喵
+    [MenuItem("Assets/Create/Folder/Create Default Folders")] // 添加一个菜单项到Assets/Create/Folder菜单下，点击后会调用SetUpFolders方法喵
+    [MenuItem("Tools/Create/Folder/Create Default Folders")] // 添加一个菜单项到Tools/Create/Folder菜单下，点击后会调用SetUpFolders方法喵
     private static void SetUpFolders() // 声明一个静态方法SetUpFolders，用于创建编辑器窗口喵
     {
         CreateFolders window = ScriptableObject.CreateInstance<CreateFolders>(); // 创建一个CreateFolders实例喵
@@ -75,6 +76,8 @@ public class CreateFolders : EditorWindow // 声明一个名为CreateFolders的�
         projectName = EditorGUILayout.TextField("Project Name: ", projectName); // 绘制一个文本框，用于用户输入项目名称喵
         this.Repaint(); // 强制重新绘制GUI喵
         GUILayout.Space(10);
+
+        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition); // 开始一个滚动视图喵
 		
 		// 显示要创建的文件夹结构
         EditorGUILayout.LabelField("Folders to be created:", EditorStyles.boldLabel);
@@ -93,8 +96,9 @@ public class CreateFolders : EditorWindow // 声明一个名为CreateFolders的�
         EditorGUILayout.LabelField($"    - Assets");
         EditorGUILayout.LabelField($"    - Fonts");
         EditorGUILayout.LabelField($"    - Icon");
-
-
+		
+        EditorGUILayout.EndScrollView(); // 结束滚动视图喵
+		
         GUILayout.Space(10);
          
         if (GUILayout.Button("Generate!")) // 绘制一个按钮，点击后会调用CreateAllFolders方法，并关闭窗口喵
